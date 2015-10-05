@@ -3,6 +3,8 @@ var React = require('react');
 var Backbone = require('backbone');
 window.$ = require('jquery');
 window.jQuery = $;
+Parse.initialize('OAin30pjfN6VbrDGkSeEq7SZ1YCWGj6mlppw8cGS', 'XUehvIhPzP0B5E83CMBuxuYF6b31WyqGxYqA4BSx');
+
 
 var NavigationComponent = require('./components/NavigationComponent');
 var HomeComponent = require('./components/HomeComponent');
@@ -28,10 +30,16 @@ var Router = Backbone.Router.extend({
 		React.render(<HomeComponent />, app);
 	},
 	dashboard: function() {
-		React.render(<DashboardComponent />, app);
+		console.log(Parse.User.current() );
+		if (Parse.User.current()) {
+			React.render(<DashboardComponent />, app);
+		}
+		 else { 
+		 	React.render(<LoginComponent router={r} />, app);
+		}
 	},
 	login: function() {
-		React.render(<LoginComponent />, app);
+		React.render(<LoginComponent router={r} />, app);
 	},
 	register: function() {
 		React.render(<RegisterComponent router={r} />, app);
